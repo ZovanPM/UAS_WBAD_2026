@@ -76,3 +76,5 @@ prisma/
 
 Tabel `Buku`: `id`, `judul`, `penulis`, `kategori`, `tahun` (opsional), `stokTotal`,
 `stokTersedia`, `deskripsi` (opsional), `createdAt`.
+
+//
