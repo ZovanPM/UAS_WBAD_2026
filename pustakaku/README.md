@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PustakaKu
 
-## Getting Started
+Aplikasi web sederhana untuk mencatat koleksi buku perpustakaan SMA, pengganti pencatatan manual.
+Dibuat untuk UAS Web Application Development, Semester Ganjil 2026-1.
 
-First, run the development server:
+**Nama:** Zovan Christiano Efendi  
+**NIM:** 23502510009
+
+## Teknologi
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS
+- Prisma 6 + SQLite
+- Server Action untuk form tambah buku
+
+## Fitur
+
+- Landing page berisi penjelasan aplikasi dan tombol ke daftar buku
+- Daftar buku dengan pencarian (judul atau penulis); stok bernilai 0 tampil merah
+- Detail buku, dengan halaman 404 untuk buku yang tidak ada
+- Form tambah buku dengan validasi di server dan redirect ke halaman detail
+- Seed otomatis: 5 buku awal terisi saat tabel masih kosong
+
+## Rute
+
+| Halaman | Rute |
+|---|---|
+| Landing page | `/` |
+| Daftar buku | `/buku` |
+| Detail buku | `/buku/[id]` |
+| Form tambah | `/buku/baru` |
+
+## Cara menjalankan
+
+Prasyarat: Node.js 20 atau lebih baru.
 
 ```bash
+git clone <url-repo-ini>
+cd <nama-folder-repo>
+npm install
+cp .env.example .env        # Windows CMD: copy .env.example .env
+npx prisma migrate dev
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npx prisma migrate dev` membuat file database SQLite (`prisma/dev.db`) beserta tabelnya.
+Data awal terisi otomatis saat halaman `/buku` pertama kali dibuka.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Struktur folder
 
-## Learn More
+```
+app/
+  layout.tsx          layout bersama (navbar)
+  page.tsx            landing page
+  not-found.tsx       halaman 404
+  buku/
+    page.tsx          daftar buku + pencarian
+    loading.tsx       tampilan loading
+    actions.ts        Server Action simpan buku
+    baru/page.tsx     form tambah buku
+    [id]/page.tsx     detail buku
+components/
+  Navbar.tsx
+  FormBuku.tsx
+lib/
+  prisma.ts           koneksi database tunggal
+  seed.ts             data awal
+  kategori.ts         daftar kategori
+prisma/
+  schema.prisma       skema tabel Buku
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Skema database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tabel `Buku`: `id`, `judul`, `penulis`, `kategori`, `tahun` (opsional), `stokTotal`,
+`stokTersedia`, `deskripsi` (opsional), `createdAt`.
