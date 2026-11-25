@@ -1,0 +1,1 @@
+export const DAFTAR_KATEGORI = ["Novel", "Sains", "Sejarah", "Referensi", "Lainnya"];

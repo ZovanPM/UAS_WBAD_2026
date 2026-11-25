@@ -3,8 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-
-export const DAFTAR_KATEGORI = ["Novel", "Sains", "Sejarah", "Referensi", "Lainnya"];
+import { DAFTAR_KATEGORI } from "@/lib/kategori";
 
 export type FormState = {
   sukses: boolean;

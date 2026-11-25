@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { simpanBuku, DAFTAR_KATEGORI, type FormState } from "@/app/buku/actions";
+import { simpanBuku, type FormState } from "@/app/buku/actions";
+import { DAFTAR_KATEGORI } from "@/lib/kategori";
 
 const awal: FormState = { sukses: false, pesan: "" };
 
